@@ -1,0 +1,36 @@
+@import 'primeicons/primeicons.css';
+
+:root {
+  --sc-sidebar-bg: #16294d;
+  --sc-sidebar-fg: #d7deea;
+  --sc-sidebar-muted: #8f9cb3;
+  --sc-sidebar-active: #253c66;
+  --sc-page-bg: #ffffff;
+  --sc-surface-muted: #f2f4f7;
+  --sc-border: #e3e7ee;
+  --sc-text: #1b2333;
+  --sc-text-muted: #5d6b82;
+  --sc-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 1024px; /* минимальная ширина — планшет в альбомной ориентации (ТЗ, раздел 5) */
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--sc-text);
+  background: var(--sc-page-bg);
+}
+
+/* Суммы — моноширинным шрифтом (ТЗ, раздел 5). */
+.mono,
+.amount {
+  font-family: var(--sc-font-mono);
+  font-variant-numeric: tabular-nums;
+}

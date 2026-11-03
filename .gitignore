@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+
+# Node
+node_modules/
+dist/
+.eslintcache
+*.tsbuildinfo
+coverage/
+
+# Окружение
+.env
+deploy/.env
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json

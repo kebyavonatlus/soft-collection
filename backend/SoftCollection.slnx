@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Hosts/">
+    <Project Path="src/Hosts/SoftCollection.Api/SoftCollection.Api.csproj" />
+    <Project Path="src/Hosts/SoftCollection.PublicGateway/SoftCollection.PublicGateway.csproj" />
+    <Project Path="src/Hosts/SoftCollection.Worker/SoftCollection.Worker.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/SoftCollection.SharedKernel/SoftCollection.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SoftCollection.Architecture.Tests/SoftCollection.Architecture.Tests.csproj" />
+    <Project Path="tests/SoftCollection.SharedKernel.Tests/SoftCollection.SharedKernel.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,82 @@
+# Локальная разработка и основа поставки для МКК/МФК.
+# Запуск: cd deploy && cp .env.example .env && docker compose up --build
+name: soft-collection
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: Asia/Bishkek
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  api:
+    build:
+      context: ../backend
+      args: { HOST: Api }
+    environment:
+      ConnectionStrings__Main: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+    depends_on:
+      postgres: { condition: service_healthy }
+    ports:
+      - "8080:8080"
+
+  worker:
+    build:
+      context: ../backend
+      args: { HOST: Worker }
+    environment:
+      ConnectionStrings__Main: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  public-gateway:
+    build:
+      context: ../backend
+      args: { HOST: PublicGateway }
+    ports:
+      - "8081:8080"
+
+  web:
+    build: ../web
+    depends_on: [api]
+    ports:
+      - "8000:80"
+
+  debtor-page:
+    build: ../debtor-page
+    depends_on: [public-gateway]
+    ports:
+      - "8001:80"
+
+  # Телефония: настраивается в задаче «Asterisk в compose» (S3) и спайке этапа 0.
+  # Запуск: docker compose --profile telephony up
+  asterisk:
+    profiles: ["telephony"]
+    build: ../telephony
+    network_mode: host
+
+volumes:
+  pgdata:
+  minio:
