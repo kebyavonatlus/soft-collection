@@ -1,0 +1,25 @@
+/*
+ * Токены дизайн-системы «ЛБ Ломбард» поверх CSS-переменных Element Plus.
+ * Цвета сняты с макетов; сверить с дизайнером (задача S0 «Каркас фронта»).
+ */
+@import 'element-plus/dist/index.css';
+
+:root {
+  --el-color-primary: #1f3f78;
+  --el-color-primary-light-3: #62799f;
+  --el-color-primary-light-5: #8f9fbb;
+  --el-color-primary-light-7: #bcc5d7;
+  --el-color-primary-light-8: #d2d9e4;
+  --el-color-primary-light-9: #e9ecf2;
+  --el-color-primary-dark-2: #193260;
+
+  --el-color-danger: #b42318;
+  --el-color-warning: #b54708;
+  --el-color-success: #067647;
+
+  --el-border-radius-base: 6px;
+  --el-font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --el-text-color-primary: var(--sc-text);
+  --el-text-color-regular: var(--sc-text);
+  --el-border-color: var(--sc-border);
+}

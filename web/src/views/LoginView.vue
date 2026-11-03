@@ -2,10 +2,8 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
-import Button from 'primevue/button'
-import SelectButton from 'primevue/selectbutton'
+import { Smartphone } from '@lucide/vue'
+import { ScButton, ScInput, ScSegmented } from '@/shared/ui'
 import { setLocale, type AppLocale } from '@/i18n'
 
 // Э-01 Вход. Сейчас только вёрстка; проверка на бэкенде — задача S0 «Вход Э-01».
@@ -14,13 +12,13 @@ const router = useRouter()
 const login = ref('')
 const password = ref('')
 
-const languageOptions = [
+const languageOptions: { label: string; value: AppLocale }[] = [
   { label: 'Кыргызча', value: 'ky' },
   { label: 'Русский', value: 'ru' },
 ]
 const currentLocale = computed({
   get: () => locale.value as AppLocale,
-  set: (value: AppLocale) => value && setLocale(value),
+  set: (value: AppLocale) => setLocale(value),
 })
 
 function submit() {
@@ -40,15 +38,17 @@ function submit() {
     </section>
 
     <section class="form-side">
-      <SelectButton v-model="currentLocale" class="lang" :options="languageOptions" option-label="label" option-value="value" :allow-empty="false" />
+      <div class="lang"><ScSegmented v-model="currentLocale" :options="languageOptions" /></div>
       <form class="form" @submit.prevent="submit">
         <h2>{{ t('login.title') }}</h2>
         <label for="login">{{ t('login.login') }}</label>
-        <InputText id="login" v-model="login" autocomplete="username" fluid />
+        <ScInput id="login" v-model="login" autocomplete="username" />
         <label for="password">{{ t('login.password') }}</label>
-        <Password input-id="password" v-model="password" :feedback="false" toggle-mask fluid />
-        <Button type="submit" :label="t('login.submit')" fluid />
-        <p class="hint"><i class="pi pi-mobile" /> {{ t('login.smsHint') }}</p>
+        <ScInput id="password" v-model="password" type="password" autocomplete="current-password" />
+        <div class="submit">
+          <ScButton variant="primary" native-type="submit" block>{{ t('login.submit') }}</ScButton>
+        </div>
+        <p class="hint"><Smartphone :size="16" aria-hidden="true" /> <span>{{ t('login.smsHint') }}</span></p>
         <p class="muted">{{ t('login.forgot') }}</p>
       </form>
     </section>
@@ -121,10 +121,13 @@ function submit() {
   font-size: 14px;
   margin-top: 8px;
 }
-.form :deep(.p-button) {
+.submit {
   margin-top: 16px;
 }
 .hint {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
   background: var(--sc-surface-muted);
   border-radius: 6px;
   padding: 12px 14px;

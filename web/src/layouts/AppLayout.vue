@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import SelectButton from 'primevue/selectbutton'
+import { ScSegmented } from '@/shared/ui'
 import { navigation } from '@/app/navigation'
 import { setLocale, type AppLocale } from '@/i18n'
 import { formatDate } from '@/shared/format'
@@ -13,13 +13,13 @@ const { t, locale } = useI18n()
 // как после установки, когда все вкладки открыты всем ролям (ТЗ, раздел 2).
 const sections = navigation
 
-const languageOptions = [
+const languageOptions: { label: string; value: AppLocale }[] = [
   { label: 'Кыргызча', value: 'ky' },
   { label: 'Русский', value: 'ru' },
 ]
 const currentLocale = computed({
   get: () => locale.value as AppLocale,
-  set: (value: AppLocale) => value && setLocale(value),
+  set: (value: AppLocale) => setLocale(value),
 })
 
 // Опер. день придёт с бэкенда (дата последней успешной загрузки задолженности).
@@ -38,7 +38,7 @@ const operDay = formatDate(new Date())
         <section v-for="section in sections" :key="section.key">
           <h2 class="menu-section">{{ t(`nav.${section.key}`) }}</h2>
           <RouterLink v-for="item in section.items" :key="item.tab" :to="item.path" class="menu-item">
-            <i :class="item.icon" aria-hidden="true" />
+            <component :is="item.icon" :size="18" aria-hidden="true" />
             <span>{{ t(`nav.${item.tab}`) }}</span>
           </RouterLink>
         </section>
@@ -49,7 +49,7 @@ const operDay = formatDate(new Date())
           <span>{{ t('layout.operDay') }}</span>
           <span class="mono">{{ operDay }}</span>
         </div>
-        <SelectButton v-model="currentLocale" :options="languageOptions" option-label="label" option-value="value" size="small" :allow-empty="false" />
+        <ScSegmented v-model="currentLocale" :options="languageOptions" size="small" />
       </footer>
     </aside>
 

@@ -1,3 +1,18 @@
+import type { Component } from 'vue'
+import {
+  ChartColumn,
+  Calendar,
+  FileText,
+  Inbox,
+  List,
+  Plug,
+  Scale,
+  SlidersHorizontal,
+  SquareCheck,
+  UserRound,
+  Users,
+} from '@lucide/vue'
+
 /**
  * Боковое меню — одно на всё приложение (ТЗ, раздел 5).
  * Ключ `tab` — строка матрицы доступов на Э-11 (Нет / Просмотр / Полный).
@@ -21,7 +36,7 @@ export interface NavItem {
   tab: TabKey
   screen: string
   path: string
-  icon: string
+  icon: Component
   /** Этап плана, в котором экран появляется. */
   milestone: string
 }
@@ -35,27 +50,27 @@ export const navigation: NavSection[] = [
   {
     key: 'work',
     items: [
-      { tab: 'myCases', screen: 'Э-02', path: '/my-cases', icon: 'pi pi-inbox', milestone: 'S2' },
-      { tab: 'promises', screen: 'Э-02', path: '/promises', icon: 'pi pi-calendar', milestone: 'S2' },
-      { tab: 'groupCases', screen: 'Э-04', path: '/group-cases', icon: 'pi pi-users', milestone: 'S4' },
-      { tab: 'approvals', screen: 'Э-05', path: '/approvals', icon: 'pi pi-check-square', milestone: 'Этап 2' },
-      { tab: 'legal', screen: 'Э-09', path: '/legal', icon: 'pi pi-briefcase', milestone: 'Этап 3' },
+      { tab: 'myCases', screen: 'Э-02', path: '/my-cases', icon: Inbox, milestone: 'S2' },
+      { tab: 'promises', screen: 'Э-02', path: '/promises', icon: Calendar, milestone: 'S2' },
+      { tab: 'groupCases', screen: 'Э-04', path: '/group-cases', icon: Users, milestone: 'S4' },
+      { tab: 'approvals', screen: 'Э-05', path: '/approvals', icon: SquareCheck, milestone: 'Этап 2' },
+      { tab: 'legal', screen: 'Э-09', path: '/legal', icon: Scale, milestone: 'Этап 3' },
     ],
   },
   {
     key: 'analytics',
     items: [
-      { tab: 'dashboard', screen: 'Э-06', path: '/dashboard', icon: 'pi pi-chart-bar', milestone: 'S4' },
-      { tab: 'reports', screen: 'Э-07', path: '/reports', icon: 'pi pi-list', milestone: 'S5' },
+      { tab: 'dashboard', screen: 'Э-06', path: '/dashboard', icon: ChartColumn, milestone: 'S4' },
+      { tab: 'reports', screen: 'Э-07', path: '/reports', icon: List, milestone: 'S5' },
     ],
   },
   {
     key: 'system',
     items: [
-      { tab: 'strategies', screen: 'Э-08', path: '/strategies', icon: 'pi pi-sliders-h', milestone: 'S2' },
-      { tab: 'integrations', screen: 'Э-10', path: '/integrations', icon: 'pi pi-link', milestone: 'S1' },
-      { tab: 'users', screen: 'Э-11', path: '/users', icon: 'pi pi-user', milestone: 'S4' },
-      { tab: 'audit', screen: 'Э-12', path: '/audit', icon: 'pi pi-file', milestone: 'S4' },
+      { tab: 'strategies', screen: 'Э-08', path: '/strategies', icon: SlidersHorizontal, milestone: 'S2' },
+      { tab: 'integrations', screen: 'Э-10', path: '/integrations', icon: Plug, milestone: 'S1' },
+      { tab: 'users', screen: 'Э-11', path: '/users', icon: UserRound, milestone: 'S4' },
+      { tab: 'audit', screen: 'Э-12', path: '/audit', icon: FileText, milestone: 'S4' },
     ],
   },
 ]

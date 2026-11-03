@@ -13,7 +13,7 @@
 |---|---|
 | Бэкенд | .NET 10, ASP.NET Core, EF Core + Npgsql, Hangfire, SignalR |
 | База | PostgreSQL 16 |
-| Веб сотрудников | Vue 3, TypeScript, Vite, PrimeVue 4.5 (MIT), Pinia, vue-i18n (ky/ru) |
+| Веб сотрудников | Vue 3, TypeScript, Vite, Element Plus (MIT), Lucide, Pinia, vue-i18n (ky/ru) |
 | Страница должника | Vue 3, отдельная лёгкая сборка |
 | Телефония | Asterisk 20 (PJSIP + WebRTC, ARI), SIP-транк оператора |
 | Поставка | Docker, docker compose, офлайн-установка |

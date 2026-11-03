@@ -26,6 +26,26 @@ export default defineConfigWithVueTs(
     files: ['src/**/__tests__/*'],
   },
 
+  // Экраны не обращаются к UI-библиотеке напрямую — только через src/shared/ui (ADR-0004).
+  {
+    name: 'app/ui-library-boundary',
+    files: ['src/**/*.{vue,ts}'],
+    ignores: ['src/shared/ui/**', 'src/theme/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['element-plus', 'element-plus/*', '@element-plus/*'],
+              message: 'Используйте обёртки из @/shared/ui (ADR-0004).',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
   skipFormatting,

@@ -10,7 +10,7 @@
 | Форма бэкенда | Модульный монолит | Команда 3–4 человека, установка на серверы организации за 2–4 недели, одна организация на установку | [0001](adr/0001-modular-monolith.md) |
 | Бэкенд | .NET 10 LTS, ASP.NET Core | Стек команды; .NET 8 снимается с поддержки в ноябре 2026 | [0002](adr/0002-dotnet-backend.md) |
 | СУБД | Только PostgreSQL 16 | Секционирование, append-only аудит, SQL ночного пересчёта завязаны на PostgreSQL; две СУБД — двойная работа | [0003](adr/0003-postgresql-only.md) |
-| Фронт | Vue 3 + TypeScript + PrimeVue 4.5 (MIT) | Фреймворк с официальным роутером и стейтом; DataTable закрывает Э-04/Э-07/Э-12 | [0004](adr/0004-vue-primevue.md) |
+| Фронт | Vue 3 + TypeScript + Element Plus (MIT) | Фреймворк с официальным роутером и стейтом; таблица закрывает Э-04/Э-07/Э-12; встроенная кыргызская локаль; экраны работают только через обёртки `Sc*` | [0004](adr/0004-vue-element-plus.md) |
 | Телефония | Своя станция Asterisk + SIP-транк оператора; у банка — его станция по SIP | Установка у клиента, запись разговоров | [0005](adr/0005-asterisk-telephony.md) |
 | Публичный контур | Отдельный хост `PublicGateway` в DMZ | Наружу — только страница должника и API мобильного приложения | [0001](adr/0001-modular-monolith.md) |
 | Провайдеры | Интерфейсы `IAbsAdapter`, `ISmsProvider`, `ITelephonyProvider`, `IPaymentProvider` | Новый клиент — новый адаптер, ядро не меняется | — |
@@ -37,9 +37,9 @@
 | Наблюдаемость | Serilog, OpenTelemetry → Prometheus / Grafana / Loki |
 | Тесты | xUnit, Testcontainers (PostgreSQL), ArchUnitNET |
 
-Не используем из-за коммерческих лицензий: MediatR, AutoMapper, MassTransit (платные с 2025), QuestPDF (бесплатен до $1 млн выручки), PrimeVue 5+ (PrimeUI License).
+Не используем из-за коммерческих лицензий: MediatR, AutoMapper, MassTransit (платные с 2025), QuestPDF (бесплатен до $1 млн выручки), PrimeVue 5+ (PrimeUI License — поэтому фронт на Element Plus, см. ADR-0004).
 
-**Фронт:** Vue 3.5 (`<script setup>`), TypeScript, Vite, Vue Router, Pinia, TanStack Query for Vue + клиент из OpenAPI (orval), PrimeVue 4.5.5 с пресетом токенов «ЛБ Ломбард», VeeValidate + zod, vue-i18n (ky/ru), vue-echarts, `@microsoft/signalr`, JsSIP (софтфон), Vitest + Playwright.
+**Фронт:** Vue 3.5 (`<script setup>`), TypeScript, Vite, Vue Router, Pinia, TanStack Query for Vue + клиент из OpenAPI (orval), Element Plus (MIT) с токенами «ЛБ Ломбард» через CSS-переменные, иконки Lucide; экраны обращаются к библиотеке только через обёртки `src/shared/ui` (правило ESLint), VeeValidate + zod, vue-i18n (ky/ru), vue-echarts, `@microsoft/signalr`, JsSIP (софтфон), Vitest + Playwright.
 
 **Страница должника (Э-13):** отдельная сборка Vue без UI-библиотеки, бюджет — открытие до 3 с на мобильном интернете.
 
@@ -113,7 +113,7 @@ Public        — ссылки оплаты, страница должника, 
 | Законы КР о взыскании, записи разговоров и ПДн | Юрист до S2: от этого зависят лимиты по умолчанию и тексты |
 | Неизвестное серверное окружение банка | Требования к серверам — на этапе 0; поставка в контейнерах, установка без интернета |
 | Производительность пересчёта и отчётов | Генератор синтетики на 500 тыс. договоров с S0, нагрузочные тесты |
-| Лицензия UI-библиотеки | PrimeVue закреплён на 4.5.5 (MIT); решение о дальнейшем — задача этапа 0 |
+| Смена лицензии UI-библиотеки (как у PrimeVue 5) | Element Plus под MIT; экраны отделены от библиотеки обёртками `Sc*`, замена затронет только их |
 
 ## 8. Вопросы к ТЗ
 

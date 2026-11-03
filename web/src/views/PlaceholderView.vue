@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import Tag from 'primevue/tag'
+import { ScTag } from '@/shared/ui'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -16,7 +16,7 @@ const title = computed(() => t(`nav.${String(route.meta.tab)}`))
   </header>
   <div class="card">
     <p>{{ t('placeholder.inProgress') }}</p>
-    <Tag severity="secondary" :value="t('placeholder.plannedIn', { milestone: route.meta.milestone })" />
+    <ScTag>{{ t('placeholder.plannedIn', { milestone: route.meta.milestone }) }}</ScTag>
   </div>
 </template>
 
