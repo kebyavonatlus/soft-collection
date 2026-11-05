@@ -58,7 +58,7 @@ cd deploy && cp .env.example .env && docker compose up --build
 
 ## Задачи и канбан
 
-Бэклог (вехи, метки, 88 задач с критериями готовности) лежит в [scripts/backlog.json](scripts/backlog.json). Чтобы завести его в GitHub Issues и на доску GitHub Projects, один раз выполните из корня репозитория:
+Бэклог (вехи, метки, 93 задачи с критериями готовности) лежит в [scripts/backlog.json](scripts/backlog.json). Чтобы завести его в GitHub Issues и на доску GitHub Projects, один раз выполните из корня репозитория:
 
 ```bash
 gh auth login
